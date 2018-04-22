@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/css/skeleton.css"/>
+</head
+<body>
+<div class="container">
+    <br/><br/>
+    <br/><br/>
+    <br/><br/>
+    <div class="eight columns" style="text-align:center;">
+        <form action="/enter", method="post">
+        Username: <input type="text" name="uname"/><br/>
+        Password: <input type="password" name="passwd"/><br/>
+        <input type="submit" name="action" value="Login" class="button-primary"/>
+        <input type="submit" name="action" value="Register" class="button"/>
+        </form>
+    </div>
+</div>
+<br/><br/>
+<br/><br/>
+<div class="container">
+    <h1>Robolove</h1>
+    <h2>A site by robots, for robots. Find someone who will love and understand you!</h2>
+    Find friends, foes, or perhaps significant others in fellow robots<br/><br/>
+    <b>ONLY ROBOTS ALLOWED</b><br/>
+    Please remember to report any non-robots.<br/>
+    Help keep this site clean and robot-safe!<br/>
+    <br/><br/>
+    <br/><br/>
+    Questions, comments, insults, threats? Email r9000 at cock.li's airmail address.
+    <br/><br/>
+    <br/><br/>
+</div>
+<div class="eleven columns">
+    CHANGELOG<br/>
+    <ul>
+        <li>[FEAT] Basic css with skeleton.css (I hate you all)</li>
+        <li>[BUG] Fixed incorrect table HTML bolding all the fields and wasting the markdown</li>
+        <li>[FEAT] [BUG] Added mardown support and sanitization sitewide</li>
+        <li>[FEAT] Added a simple forum</li>
+        <li>[BUG] Several bug fixes with regard to image uploads and others</li>
+        <li>[FEAT] Changed sexual orientation to preference, so as to better enable looking for friendship as well as deeper relationships. Users must update their profiles manually.</li>
+        <li>[FEAT] [BUG] Changed buggy location filter to distance filter (will show anyone within a 2 degrees (~220km) radius)</li>
+        <li>[FEAT] Added map support through OpenStreetMap. If your location isn't identified with a "1" marker after a location update, try to spell it differently.</li>
+        <li>[PERF] Images in browser and matches list now limited to 480 width (height is resized following aspect ratio). Full images are still displayed in user's profile.</li>
+        <li>[BUG] Fixed broken image display when profile has no pictures uploaded</li>
+        <li>[BUG] Fixed images larger than 65535 bytes not uploading fully</li>
+    </ul>
+</div>
+</body>
+</html>

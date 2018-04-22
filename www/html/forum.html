@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/css/skeleton.css"/>
+</head>
+<body>
+{% include 'html/header.html' %}
+<div class="container">
+    <div class="eight columns" style="padding-left:25%">
+        <form action="/post" method="POST">
+            {% if thread < 0 %}<div class="row"><div class="one columns">Title:</div><div class="one columns"><input type="text" name="title"></input></div></div>
+            {% else %}<input type="hidden" name="t" value="{{ thread }}"></input>{% endif %}
+        <div class="row">Comment:</div><div class="row"><textarea name="content" rows=20 cols=80></textarea></div>
+        <div class="row">
+            <input type="submit" name="action" value="Post" class="button-primary"></input>
+        </div>
+        </form>
+    </div>
+</div>
+{% if thread < 0 %}
+<div class="container" style="overflow-x: auto">
+<table>
+<tr>
+    <th><b>Thread Starter</b></th><th><b>Title</b></th><th><b>OP</b></th>
+</tr>
+{% for p in posts %}
+<tr><td><a href="/user_info?who={{ p.poster }}">{{ p.poster }}</a></td><td><a href="/forum?t={{ p.thread }}">[{{ p.count }} posts] {{ p.title }}</a></td><td><div style="overflow-x: auto">{{ p.content }}</div></td></tr>
+{% endfor %}
+</table>
+</div>
+{% else %}
+<div class="container">
+<br/>
+{% for p in posts %}
+<div class="row" style="background: #D0D0D0">
+<div style="padding-left:0.5%;"><b><a href="/user_info?who={{ p.poster }}">{{ p.poster }}</a></b></div>
+</div>
+<div class="row">
+{{ p.content }}
+</div>
+{% endfor %}
+</div>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/css/skeleton.css"/>
+</head>
+<body>
+{% include 'html/header.html' %}
+<h1>{{ who }}'s Profile</h1>
+{% if not myself %}
+<br/>
+<form action="/match" method="post">
+<input type="hidden" name="who" value="{{ who }}"/>
+<input type="submit" name="action" value="{% if matched %}Unmatch{% else %}Match{% endif %}"/>
+<input type="submit" name="action" value="Ignore"/>
+</form>
+<br/>
+{% endif %}
+{% if myself %}
+<div>
+    <div class="row">
+        <form action="/logout" method="get"><input type="submit" value="Logout"></input></form>
+    </div>
+    <div class="row">
+        <form action="/matches" method="get"><input type="submit" value="Matches ({{ match_count }})" class="button-primary"></input></form>
+    </div>
+</div>
+{% endif %}
+<div class="container">
+    <form action="/update_info", method="post" name="submit_form">
+    <div class="row">
+        {% if myself %}<div class="one columns">Password:</div><div class="six columns"><input type="password" name="passwd"/></div><br/>{% endif %}
+    </div>
+    <div class="row">
+        <div class="one columns">Name:</div><div class="six columns"><input type="text" name="name" value="{{ name }}" {% if not myself %} readonly {% endif %}/></div><br/>
+    </div>
+    <div class="row">
+        <div class="one columns">Location:</div><div class="six columns"><input type="text" name="location" value="{{ location }}" {% if not myself %} readonly {% endif %}/></div></br>
+    </div>
+    <div class="row">
+        <img src="http://staticmap.openstreetmap.de/staticmap.php?center={{ location_coords }}&markers={{ location_coords }}|lightblue1&zoom=10&size=320x240&maptype=mapnik"/>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="one columns">Contact (discord, email...):</div><div class="six columns"><input type="text" name="discord" value="{% if has_discord %}{{ discord }}{% else %}[You haven't matched yet]{% endif %}" {% if not myself %} readonly {% endif %}/></div><br/>
+    </div>
+    <div class="row">
+        <div class="one columns">Sex:</div><div class="six columns">M <input type="radio" name="sex" value="male" {% if male %} checked {% endif %} {% if not myself %} disabled {% endif %}/>
+            F <input type="radio" name="sex" value="female" {% if not male %} checked {% endif %} {% if not myself %} disabled {% endif %}/></div><br/>
+    </div>
+    <div class="row">
+        <div class="one columns">Looking For:</div><div class="six columns">Female <input type="radio" name="pref" value=0 {% if pref == 0 %} checked {% endif %} {% if not myself %} disabled {% endif %}/>
+    Both <input type="radio" name="pref" value=1 {% if pref == 1 %} checked {% endif %} {% if not myself %} disabled {% endif %}/>
+    Male <input type="radio" name="pref" value=2 {% if pref == 2 %} checked {% endif %} {% if not myself %} disabled {% endif %}/></div><br/>
+    </div>
+    <div class="row">
+        Description:</div><div class="row">{% if myself %}<textarea name="descr" rows=20 cols=80>{{ descr }}</textarea>{% else %}<hr/>{{ mddescr }}<hr/>{% endif %}</div><br/>
+    <div class="row">
+        {% if myself %}<div class="one columns"><input type="submit" name="action" value="Submit" class="button-primary"/></div>
+        <div class="one columns"><input type="submit" name="action" value="Cancel"/></div>{% endif %}
+    </div>
+    </form>
+</div>
+<form action="/pics", method="post">
+<input type="hidden" name="who" value="{{ who }}"/>
+<input type="submit" name="action" value="{% if myself %}Manage {% endif %}Pictures" class="button-primary"/>
+</form>
+<br/><br/>
+{% if not myself %}
+{% if warn != "" %}
+<br/><textarea name="warn" rows=20 cols=80 readonly>{{ warn }}</textarea><br/>
+{% endif %}
+<form action="/report", method="post">
+<input type="hidden" name="target" value="{{ who }}"/>
+Report Reason:<br/><textarea name="reason" rows=20, cols=80></textarea><br/>
+<input type="submit" name="action" value="Report"/>
+</form>
+{% endif %}
+<br/>
+</body>
+</html>

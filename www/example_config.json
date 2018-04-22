@@ -1,0 +1,1 @@
+{"db": "mydb", "user": "admin", "password": "password", "host": "localhost", "salt": "very secure token", "res_path": "/www", "session_secret": "very secure password", "api": "api.server.com:8080"}

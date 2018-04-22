@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/css/skeleton.css"/>
+</head>
+<body>
+{% include 'html/header.html' %}
+<h1>{{ who }}'s Pictures</h1>
+<form action="/del_pics", method="post">
+{% for pic in pics %}
+{% if myself %}<input type="checkbox" name="{{ pic.id }}"/>{% endif %}
+<img src="data:image/png;base64,{{ pic.content }}" name="image"/>
+{% endfor %}
+{% if myself %}<br/><br/>
+{% if pics|length > 0 %}<input type="submit" name="action" value="Delete Selected" class="button-primary" />{% endif %}
+{% endif %}
+</form>
+{% if myself %}
+<form action="/add_pics", method="post" enctype="multipart/form-data">
+<input type="file" name="pic" accept="image/*" />
+<input type="submit" value="Upload" class="button-primary" />
+</form>
+{% endif %}
+<br>
+</body>
+</html>

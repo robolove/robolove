@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="/static/css/skeleton.css"/>
+</head>
+<body>
+{% include 'html/header.html' %}
+<div class="container">
+{% if people|length > 0 %}
+    <table>
+    <tr>
+    <th>
+    <b>Main Picture</b>
+    </th>
+    <th>
+    <b>Name</b>
+    </th>
+    <th>
+    <b>Location</b>
+    </th>
+    <th>
+    <b>Sex</b>
+    </th>
+    <th>
+    <b>Looking For</b>
+    </th>
+    <th>
+    <b>Description</b>
+    </th>
+    {% for p in people %}
+    <tr>
+    <td>
+    {% if p.pic is not none %}<img src="data:image/png;base64,{{ p.pic }}" name="image"/>{% endif %}
+    </td>
+    <td>
+    <a href="/user_info?who={{ p.uname }}">{% if p.name != "" %}{{ p.name }}{% else %}[username: {{ p.uname }}]{% endif %}</a>
+    </td>
+    <td>
+    {{ p.loc }}
+    </td>
+    <td>
+    {{ p.sex }}
+    </td>
+    <td>
+    {{ p.prefer }}
+    </td>
+    <td>
+    {{ p.descr }}
+    </td>
+    </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    Nobody is available right now. Try the "Don't Limit Location" button.
+{% endif %}
+</div>
+<br/>
+<div class="container" style="text-align:center; padding-left: 10%;">
+<div class="three columns">
+<form action="/{{ here }}" method="get">
+<input type="hidden" name="s" value="{{ next_start }}"/>
+<input type="hidden" name="e" value="{{ next_end }}"/>
+<input type="hidden" name="l" value="{{ limit_loc }}"/>
+<input type="submit" value="Next"/>
+</form>
+</div>
+<div class="three columns">
+<form action="/{{ here }}" method="get">
+<input type="hidden" name="s" value="{{ prev_start }}"/>
+<input type="hidden" name="e" value="{{ prev_end }}"/>
+<input type="hidden" name="l" value="{{ limit_loc }}"/>
+<input type="submit" value="Previous"/>
+</form>
+</div>
+{% if here != 'matches' %}
+<div class="three columns">
+<form action="/{{ here }}" method="get">
+<input type="hidden" name="s" value="{{ start }}"/>
+<input type="hidden" name="e" value="{{ end }}"/>
+<input type="hidden" name="l" value="{% if limit_loc == 'true' %}false{% else %}true{% endif %}"/>
+<input type="submit" value="{% if limit_loc == 'true' %}Don't {% endif %}Limit Location"/>
+</form>
+</div>
+</div>
+{% endif %}
+</body>
+</html>

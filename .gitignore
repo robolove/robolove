@@ -1,0 +1,7 @@
+# Cache, etc.
+*~
+*.sw*
+*.pyc
+
+# Server settings that shouldn't be shared
+config.json
